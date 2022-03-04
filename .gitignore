@@ -1,0 +1,5 @@
+# The envirement folder
+env/
+
+# Python execution cache
+__pycache__/
