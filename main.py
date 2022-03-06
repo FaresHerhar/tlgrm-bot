@@ -1,15 +1,23 @@
-from scraper import Scarper
-from config import BEARER_TOKEN
+if __name__ == '__main__':
+    from time import sleep
 
-# Create Scraper object
-scraper = Scarper(BEARER_TOKEN)
+    from scraper import TwitterScarper
+    from parser import TelegramParser
+    from config import TWT_BEARER_TOKEN, TLGRM_BOT_TOKEN, TLGRM_CHAT_ID
 
-screen_name = 'wikileaks'
-account_id = scraper.get_twitter_id(screen_name)
-limit = 10
+    # Create Scraper, Parser objects
+    scraper = TwitterScarper(TWT_BEARER_TOKEN)
+    parser = TelegramParser(TLGRM_BOT_TOKEN, TLGRM_CHAT_ID)
 
-tweets = scraper.get_tweets(account_id, limit)
+    # Get the account Twitter ID, and put a limit for the tweets
+    screen_name = 'wikileaks'
+    account_id = scraper.get_twitter_id(screen_name)
+    limit = 10
 
-for tweet in tweets:
-    print(tweet.id, tweet.text)
-    print('-----\n')
+    # Retrieve the tweets
+    tweets = scraper.get_tweets(account_id, limit)
+
+    # Push the tweets to Tlegram channel
+    for tweet in tweets:
+        parser.send_message(tweet.text)
+        sleep(5)

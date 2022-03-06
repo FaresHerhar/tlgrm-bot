@@ -2,15 +2,10 @@ from typing import List
 import requests
 import tweepy
 
-from config import CDN_API_ID, CDN_API_NAME, BOT_TOKEN, CHAT_ID, TLGRM_TEXT
+from config import TWT_CDN_API_ID, TWT_CDN_API_NAME
 
 
-def telegram_bot_send_text(bot_message: str):
-    response = requests.get(TLGRM_TEXT.format(BOT_TOKEN, CHAT_ID, bot_message))
-    return response.json()
-
-
-class Scarper:
+class TwitterScarper:
     """ Twitter scraper class.
     
     A class containg methods that allows us to fetch basic data about tweets
@@ -74,7 +69,7 @@ class Scarper:
         """
         # Get the output as a json data
         # After that you'll get a dictionary into a single element list
-        json_data = requests.get(CDN_API_ID.format(screen_name)).json()
+        json_data = requests.get(TWT_CDN_API_ID.format(screen_name)).json()
         return json_data[0]['id']
 
 
@@ -93,10 +88,5 @@ class Scarper:
         """
         # Get the output as a json data
         # After that you'll get a dictionary into a single element list
-        json_data = requests.get(CDN_API_NAME.format(account_id)).json()
+        json_data = requests.get(TWT_CDN_API_NAME.format(account_id)).json()
         return json_data[0]['screen_name']
-
-
-if __name__ == '__main__':
-    print(Scarper.get_twitter_id('elonmusk'))
-    print(Scarper.get_twitter_screen_name('44196397'))
