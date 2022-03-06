@@ -2,7 +2,12 @@ from typing import List
 import requests
 import tweepy
 
-from config import CDN_API_ID, CDN_API_NAME
+from config import CDN_API_ID, CDN_API_NAME, BOT_TOKEN, CHAT_ID, TLGRM_TEXT
+
+
+def telegram_bot_send_text(bot_message: str):
+    response = requests.get(TLGRM_TEXT.format(BOT_TOKEN, CHAT_ID, bot_message))
+    return response.json()
 
 
 class Scarper:
@@ -48,7 +53,7 @@ class Scarper:
             
             # Making sure that I am, taking tweets only, without any retweets.
             # After chacking the tweets checks, the tweets starts with 'RT '
-            if tweet.text.startswith('RT '):
+            if not tweet.text.startswith('RT '):
                 tweets.append(tweet)
 
         return tweets
