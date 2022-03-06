@@ -46,7 +46,10 @@ class Scarper:
                                         tweet_fields=['text'],
                                         max_results=100).flatten(limit=limit):
             
-            tweets.append(tweet)
+            # Making sure that I am, taking tweets only, without any retweets.
+            # After chacking the tweets checks, the tweets starts with 'RT '
+            if tweet.text.startswith('RT '):
+                tweets.append(tweet)
 
         return tweets
 

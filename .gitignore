@@ -3,3 +3,6 @@ env/
 
 # Python execution cache
 __pycache__/
+
+# configuration file
+config.py
