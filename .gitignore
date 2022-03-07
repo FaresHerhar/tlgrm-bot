@@ -1,8 +1,8 @@
 # The envirement folder
 env/
 
-# Python execution cache
+# Python cache
 __pycache__/
 
-# configuration file
-config.py
+# Tweets data cache
+data/
