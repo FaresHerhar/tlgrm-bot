@@ -13,14 +13,14 @@ class TelegramParser:
                      to push messages to the specific channel.
     """
 
-    def __init__(self, TLGRM_BOT_TOKEN: str, TLGRM_CHAT_ID: str) -> None:
+    def __init__(self, tlgrm_bot_token: str, tlgrm_chat_id: str) -> None:
         """Constructor.
         
         Intitiate a telegram bot connection, and a the channel.
         """
         # Authenticate
-        self._tlgrm_bot = telegram.Bot(token=TLGRM_BOT_TOKEN)
-        self._channel_id = TLGRM_CHAT_ID
+        self._tlgrm_bot = telegram.Bot(token=tlgrm_bot_token)
+        self._channel_id = tlgrm_chat_id
 
     def send_message(self, tlgrm_message: str, parse_mode: str = 'HTML') -> None:
         """ Push messages to Telegram..
@@ -44,3 +44,4 @@ class TelegramParser:
 
         self._tlgrm_bot.send_message(chat_id=self._channel_id, text=tlgrm_message,
                                     parse_mode=telegram.ParseMode.HTML)
+    

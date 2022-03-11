@@ -1,9 +1,5 @@
 from typing import List
-import requests
 import tweepy
-
-from config import TWT_CDN_API_ID, TWT_CDN_API_NAME
-
 
 class TwitterScarper:
     """ Twitter scraper class.
@@ -46,16 +42,12 @@ class TwitterScarper:
                                         tweet_fields=['text'],
                                         max_results=100).flatten(limit=limit):
             
-            # Making sure that I am, taking tweets only, without any retweets.
-            # After chacking the tweets checks, the tweets starts with 'RT '
-            if not tweet.text.startswith('RT '):
-                tweets.append(tweet)
+            tweets.append(tweet)
 
         return tweets
 
 
-    @staticmethod
-    def get_twitter_id(screen_name: str) -> str:
+    def get_twitter_id(self, screen_name: str) -> str:
         """ A static method to fetch Twitter account ID.
 
         Retrieves a twitter account ID from the account username.
@@ -67,14 +59,12 @@ class TwitterScarper:
         Returns:
             A string that represents the twitter account ID.
         """
-        # Get the output as a json data
-        # After that you'll get a dictionary into a single element list
-        json_data = requests.get(TWT_CDN_API_ID.format(screen_name)).json()
-        return json_data[0]['id']
+        # Get the output as a response object, After that you'll get a dictionary
+        # Response(data=<User id=16589206 name=WikiLeaks username=wikileaks>, includes={}, errors=[], meta={})
+        return self._client.get_user(username=screen_name)[0]['id']
 
 
-    @staticmethod
-    def get_twitter_screen_name(account_id: str) -> str:
+    def get_twitter_username(self, account_id: str) -> str:
         """ A static method to fetch Twitter account username.
 
         Retrieves a twitter account username from the account ID.
@@ -86,7 +76,6 @@ class TwitterScarper:
         Returns:
             A string that represents the twitter account username.
         """
-        # Get the output as a json data
-        # After that you'll get a dictionary into a single element list
-        json_data = requests.get(TWT_CDN_API_NAME.format(account_id)).json()
-        return json_data[0]['screen_name']
+        # Get the output as a response object, After that you'll get a dictionary
+        # Response(data=<User id=16589206 name=WikiLeaks username=wikileaks>, includes={}, errors=[], meta={})
+        return self._client.get_user(username=account_id)[0]['username']
