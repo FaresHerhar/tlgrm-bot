@@ -7,8 +7,7 @@ if __name__ == '__main__':
     from func import save_object, load_object
     from twitter import TwitterScarper
     from tlgrm import TelegramParser
-    from config import (TLGRM_BOT_TOKEN, TLGRM_CHAT_ID, DATA_DIR,
-                        TWT_BEARER_TOKEN)
+    from config import BEARER_TOKEN, BOT_TOKEN, CHAT_ID, DATA_DIR
 
 
     # Parse the arguments list
@@ -26,9 +25,9 @@ if __name__ == '__main__':
     if '{}'.format(screen_name) not in listdir(DATA_DIR):
         save_object('{}/{}'.format(DATA_DIR, screen_name), [])
 
-    # Create Scraper, tlgrm_parser objects
-    twitter_scraper = TwitterScarper(TWT_BEARER_TOKEN)
-    tlgrm_parser = TelegramParser(TLGRM_BOT_TOKEN, TLGRM_CHAT_ID)
+    # Create Scraper, parser objects
+    twitter_scraper = TwitterScarper(BEARER_TOKEN)
+    parser = TelegramParser(BOT_TOKEN, CHAT_ID)
 
     # Get the account Twitter ID, and put a limit for the tweets
     account_id = twitter_scraper.get_twitter_id(screen_name)
@@ -50,7 +49,7 @@ if __name__ == '__main__':
         if tweet.id not in old_tweets:
             print(' Pushing Tweet: {}'.format(tweet.id), end = "\r")
             new_tweets.append(tweet.id)
-            tlgrm_parser.send_message(tweet.text)
+            parser.send_message(tweet.text)
 
             # The sleep is omportant, because when sending
             # to many parse requests without sleep, it breaks
