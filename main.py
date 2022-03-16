@@ -2,13 +2,19 @@ if __name__ == '__main__':
     # import sys.argv as argv
     from sys import argv
     from time import sleep
-    from os import listdir
+    from os import listdir, getenv
+    from dotenv import load_dotenv
 
     from func import save_object, load_object
     from twitter import TwitterScarper
     from tlgrm import TelegramParser
-    from config import BEARER_TOKEN, BOT_TOKEN, CHAT_ID, DATA_DIR
+    from config import DATA_DIR
 
+    # Load the Twitter and Telegram Credentials
+    load_dotenv()
+    BEARER_TOKEN = getenv('BEARER_TOKEN')
+    BOT_TOKEN = getenv('BOT_TOKEN')
+    CHAT_ID = getenv('CHAT_ID')
 
     # Parse the arguments list
     if len(argv) < 3:

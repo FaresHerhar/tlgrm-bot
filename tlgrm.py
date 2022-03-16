@@ -22,6 +22,7 @@ class TelegramParser:
         self._tlgrm_bot = telegram.Bot(token=tlgrm_bot_token)
         self._channel_id = tlgrm_chat_id
 
+
     def send_message(self, tlgrm_message: str, parse_mode: str = 'HTML') -> None:
         """ Push messages to Telegram..
 
