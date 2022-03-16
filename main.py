@@ -8,13 +8,13 @@ if __name__ == '__main__':
     from func import save_object, load_object
     from twitter import TwitterScarper
     from tlgrm import TelegramParser
-    from config import DATA_DIR
 
     # Load the Twitter and Telegram Credentials
     load_dotenv()
     BEARER_TOKEN = getenv('BEARER_TOKEN')
     BOT_TOKEN = getenv('BOT_TOKEN')
     CHAT_ID = getenv('CHAT_ID')
+    DATA_DIR = getenv('DATA_DIR')
 
     # Parse the arguments list
     if len(argv) < 3:
