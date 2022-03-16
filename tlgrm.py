@@ -45,4 +45,3 @@ class TelegramParser:
 
         self._tlgrm_bot.send_message(chat_id=self._channel_id, text=tlgrm_message,
                                     parse_mode=telegram.ParseMode.HTML)
-    
