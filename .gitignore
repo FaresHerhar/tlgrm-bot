@@ -6,6 +6,3 @@ __pycache__/
 
 # Ignore the api keys file
 .env
-
-# Tweets data cache
-data/
